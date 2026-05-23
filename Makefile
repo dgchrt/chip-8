@@ -5,8 +5,8 @@ SDL_LIBS = $(shell sdl2-config --libs)
 BUILD_DIR = build
 DIST_DIR = dist
 
-SRCS = chip8.c hal.c
-HDRS = chip8.h hal.h
+SRCS = $(wildcard *.c)
+HDRS = $(wildcard *.h)
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 TARGET = $(DIST_DIR)/chip8
 
