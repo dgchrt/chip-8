@@ -55,3 +55,8 @@ dkms.conf
 # debug information files
 *.dwo
 
+# Build
+build/
+
+# Dist
+dist/
