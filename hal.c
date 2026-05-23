@@ -77,10 +77,26 @@ static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
 
+// Audio state
+static SDL_AudioDeviceID audio_device;
+static uint8_t *wav_buffer = NULL;
+static uint32_t wav_length = 0;
+
 int hal_init(const char *title, int width, int height) {
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
     printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
     return -1;
+  }
+
+  // Load audio
+  SDL_AudioSpec wav_spec;
+  if (SDL_LoadWAV("beep.wav", &wav_spec, &wav_buffer, &wav_length) == NULL) {
+    printf("Could not load beep.wav! SDL_Error: %s\n", SDL_GetError());
+  } else {
+    audio_device = SDL_OpenAudioDevice(NULL, 0, &wav_spec, NULL, 0);
+    if (audio_device == 0) {
+      printf("SDL_OpenAudioDevice failed: %s\n", SDL_GetError());
+    }
   }
 
   window =
@@ -143,7 +159,21 @@ int hal_handle_events(void) {
   return 1;
 }
 
+void hal_beep(void) {
+  if (audio_device != 0 && wav_buffer != NULL) {
+    SDL_ClearQueuedAudio(audio_device);
+    SDL_QueueAudio(audio_device, wav_buffer, wav_length);
+    SDL_PauseAudioDevice(audio_device, 0);
+  }
+}
+
 void hal_cleanup(void) {
+  if (audio_device != 0) {
+    SDL_CloseAudioDevice(audio_device);
+  }
+  if (wav_buffer != NULL) {
+    SDL_FreeWAV(wav_buffer);
+  }
   terminal_restore();
   SDL_DestroyTexture(texture);
   SDL_DestroyRenderer(renderer);

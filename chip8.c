@@ -50,7 +50,7 @@ void update(void) {
 
 	if (sound_timer > 0) {
 		if (--sound_timer == 0) {
-			hal_log("BEEP!");
+			hal_beep();
 		}
 	}
 
