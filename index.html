@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>CHIP-8 Emulator</title>
+
+		<style>
+			canvas {
+				height: 256px;
+				width: 512px;
+
+				image-rendering: optimizeSpeed;             /* Older versions of FF          */
+				image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+				image-rendering: -webkit-optimize-contrast; /* Safari                        */
+				image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+				image-rendering: pixelated;                 /* Awesome future-browsers       */
+				-ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+			}
+			
+			#assets {
+				height: 1px;
+				overflow: hidden;
+				visibility: hidden;
+				width: 1px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>CHIP-8 Emulator</h1>
+		<input id="fileInput" type="file"><br>
+		<canvas width="64" height="32"></canvas><br>
+		<h2>Keys</h2>
+
+		<pre>
+			1 2 3 4
+			Q W E R
+			A S D F
+			Z X C V
+		</pre>
+
+		<div id="assets">
+			<audio id="beepSound" src="beep.wav"></audio>
+		</div>
+
+		<script src="main.js"></script>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "chip-8",
+  "version": "1.0.0",
+  "description": "CHIP-8 emulator",
+  "main": "main.js",
+  "scripts": {
+    "test": "eslint --fix ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogoeichert/chip-8.git"
+  },
+  "keywords": [
+    "chip-8",
+    "emulator"
+  ],
+  "author": "Diogo Eichert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diogoeichert/chip-8/issues"
+  },
+  "homepage": "https://github.com/diogoeichert/chip-8#readme",
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-perfect": "^1.0.0"
+  }
+}
